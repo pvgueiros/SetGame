@@ -20,8 +20,8 @@ class SetGameViewModel: ObservableObject {
     
     // MARK: - Computed Properties
     
-    var cards: [SetGame.Card] { game.cards }
-    var dealtCards: [SetGame.Card] { game.dealtCards }
+    var cards: [Card] { game.cards }
+    var dealtCards: [Card] { game.dealtCards }
     var reachedMaxDealtCards: Bool { game.reachedMaxDealtCards }
     
     // MARK: - Initialization
@@ -29,7 +29,7 @@ class SetGameViewModel: ObservableObject {
     init() {
         let newGame = SetGame()
         game = newGame
-        theme = Theme(type: .standard)
+        theme = Theme(type: .pretty)
         cardIsHiddenByID = newGame.cards.reduce([Int: Bool]()) { (dictionary, card) -> [Int: Bool] in
             var dictionary = dictionary
             dictionary[card.id] = true
@@ -50,15 +50,15 @@ class SetGameViewModel: ObservableObject {
     
     // MARK: - Intent(s)
     
-    func choose(card: SetGame.Card) {
-        #warning("implement")
+    func select(_ card: Card) {
+        game.select(card)
     }
     
-    func show(card: SetGame.Card) {
+    func show(_ card: Card) {
         cardIsHiddenByID[card.id] = false
     }
     
-    func dealCards() {
-        game.dealCards()
+    func dealThreeCards() {
+        game.dealThreeCards()
     }
 }

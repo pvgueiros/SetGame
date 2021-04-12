@@ -14,6 +14,7 @@ struct Theme {
         case standard
         case brazil
         case usa
+        case pretty
     }
     
     // MARK: - Properties
@@ -31,6 +32,10 @@ struct Theme {
             return [.blue, .green, .yellow]
         case .usa:
             return [.red, .blue, .gray]
+        case .pretty:
+            return [Color(red: 0.87, green: 0.70, blue: 0.08),
+                    Color(red: 0.21, green: 0.64, blue: 0.87),
+                    Color(red: 0.86, green: 0.25, blue: 0.63)]
         }
     }
     

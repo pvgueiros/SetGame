@@ -26,6 +26,10 @@
 		CA13FEDB261B700700D227D5 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA13FEDA261B700700D227D5 /* CardView.swift */; };
 		CA7C99F2261CA20800F6562F /* Oval.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7C99F1261CA20800F6562F /* Oval.swift */; };
 		CA7C99FA261CB5D700F6562F /* Squiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7C99F9261CB5D700F6562F /* Squiggle.swift */; };
+		CA7C9A13261FCBEE00F6562F /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7C9A12261FCBEE00F6562F /* Card.swift */; };
+		CA7C9A18261FD00A00F6562F /* Striped.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7C9A17261FD00900F6562F /* Striped.swift */; };
+		CA7C9A1E261FE53200F6562F /* CardShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7C9A1D261FE53200F6562F /* CardShape.swift */; };
+		CA7C9A2B2623B95700F6562F /* UIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7C9A2A2623B95600F6562F /* UIConstant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +75,10 @@
 		CA13FEDA261B700700D227D5 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CA7C99F1261CA20800F6562F /* Oval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Oval.swift; sourceTree = "<group>"; };
 		CA7C99F9261CB5D700F6562F /* Squiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squiggle.swift; sourceTree = "<group>"; };
+		CA7C9A12261FCBEE00F6562F /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		CA7C9A17261FD00900F6562F /* Striped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Striped.swift; sourceTree = "<group>"; };
+		CA7C9A1D261FE53200F6562F /* CardShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardShape.swift; sourceTree = "<group>"; };
+		CA7C9A2A2623B95600F6562F /* UIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				CA13FEA1261A4E8500D227D5 /* SetGame.swift */,
+				CA7C9A12261FCBEE00F6562F /* Card.swift */,
 				CA13FE9B261A440A00D227D5 /* Extensions */,
 			);
 			name = Model;
@@ -203,6 +212,7 @@
 				CA13FEC1261A9C6900D227D5 /* Cardify.swift */,
 				CA13FE84261A3DCA00D227D5 /* GridLayout.swift */,
 				CA13FE91261A405E00D227D5 /* Theme.swift */,
+				CA7C9A2A2623B95600F6562F /* UIConstant.swift */,
 			);
 			name = "View Helpers";
 			sourceTree = "<group>";
@@ -213,6 +223,8 @@
 				CA13FECD261B57AB00D227D5 /* Diamond.swift */,
 				CA7C99F1261CA20800F6562F /* Oval.swift */,
 				CA7C99F9261CB5D700F6562F /* Squiggle.swift */,
+				CA7C9A1D261FE53200F6562F /* CardShape.swift */,
+				CA7C9A17261FD00900F6562F /* Striped.swift */,
 			);
 			name = "Custom Shapes";
 			sourceTree = "<group>";
@@ -349,11 +361,14 @@
 				CA7C99FA261CB5D700F6562F /* Squiggle.swift in Sources */,
 				CA13FEB0261A52C000D227D5 /* SetGameViewModel.swift in Sources */,
 				CA13FE85261A3DCA00D227D5 /* GridLayout.swift in Sources */,
+				CA7C9A18261FD00A00F6562F /* Striped.swift in Sources */,
 				CA13FE92261A405E00D227D5 /* Theme.swift in Sources */,
 				CA7C99F2261CA20800F6562F /* Oval.swift in Sources */,
 				CA13FE50261A2C7300D227D5 /* SetGameView.swift in Sources */,
+				CA7C9A2B2623B95700F6562F /* UIConstant.swift in Sources */,
 				CA13FE4E261A2C7300D227D5 /* SetGameApp.swift in Sources */,
 				CA13FEA2261A4E8500D227D5 /* SetGame.swift in Sources */,
+				CA7C9A1E261FE53200F6562F /* CardShape.swift in Sources */,
 				CA13FE97261A43E700D227D5 /* String+Capitalize.swift in Sources */,
 				CA13FE9D261A494B00D227D5 /* Array+Identifiable.swift in Sources */,
 				CA13FEC2261A9C6900D227D5 /* Cardify.swift in Sources */,
@@ -361,6 +376,7 @@
 				CA13FEDB261B700700D227D5 /* CardView.swift in Sources */,
 				CA13FE8A261A3E2A00D227D5 /* Grid.swift in Sources */,
 				CA13FECE261B57AB00D227D5 /* Diamond.swift in Sources */,
+				CA7C9A13261FCBEE00F6562F /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

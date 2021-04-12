@@ -7,21 +7,6 @@
 
 import SwiftUI
 
-struct SetGameConstants {
-    static let shortPaddingLength: CGFloat = 5
-    static let cornerRadius: CGFloat = 10
-    static let strokeLineWidth: CGFloat = 2
-    static let shadowRadius: CGFloat = 3
-    
-    static let cardShapeHeightProportion: CGFloat = 0.2
-    static let cardShapeWidthProportion: CGFloat = 0.6
-    static let spacingBetweenShapes: CGFloat = 5
-    
-    static let cardAppearAnimationDuration = 0.1
-    static var offsetCardAppearAnimation = 0.0
-}
-typealias Constant = SetGameConstants
-
 struct SetGameView: View {
     // MARK: - Instance Properties
     
@@ -30,10 +15,10 @@ struct SetGameView: View {
     
     // MARK: - Animation
 
-    private func show(card: SetGame.Card) {
-        withAnimation(Animation.easeInOut(duration: Constant.cardAppearAnimationDuration)
-                        .delay(Double(cardsShown)*Constant.cardAppearAnimationDuration + Constant.offsetCardAppearAnimation)) {
-            gameViewModel.show(card: card)
+    private func show(_ card: Card) {
+        withAnimation(Animation.easeInOut(duration: UIK.cardAppearAnimationDuration)
+                        .delay(Double(cardsShown)*UIK.cardAppearAnimationDuration + UIK.offsetCardAppearAnimation)) {
+            gameViewModel.show(card)
         }
         cardsShown += 1
     }
@@ -51,11 +36,11 @@ struct SetGameView: View {
             HStack {
                 Text("Score: ")
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    .padding(Constant.shortPaddingLength)
+                    .padding(UIK.shortPaddingLength)
                 
                 Button(action: {
                     withAnimation(.easeInOut) {
-                        dealCards()
+                        dealThreeCards()
                     }
                 }, label: {
                     Text("Deal")
@@ -64,8 +49,8 @@ struct SetGameView: View {
                 .foregroundColor(dealButtonTextColor)
                 .padding()
                 .overlay(
-                    RoundedRectangle(cornerRadius: Constant.cornerRadius)
-                        .stroke(lineWidth: Constant.strokeLineWidth).fill(gameViewModel.theme.linearGradient)
+                    RoundedRectangle(cornerRadius: UIK.cornerRadius)
+                        .stroke(lineWidth: UIK.strokeLineWidth).fill(gameViewModel.theme.linearGradient)
                 )
             }
             .padding(.leading)
@@ -73,11 +58,14 @@ struct SetGameView: View {
             
             Grid(gameViewModel.dealtCards, cardIsHiddenByID: gameViewModel.cardIsHiddenByID) { card in
                 CardView(card: card, theme: gameViewModel.theme)
-                    .cardify(colorGradient: gameViewModel.theme.linearGradient, cornerRadius: Constant.cornerRadius, strokeLineWidth: Constant.strokeLineWidth, shadowRadius: Constant.shadowRadius)
-                    .padding(Constant.shortPaddingLength)
+                    .cardify(card: card, theme: gameViewModel.theme)
+                    .padding(UIK.shortPaddingLength)
                     .onAppear {
-                        show(card: card)
+                        show(card)
                     }
+                    .onTapGesture {
+                        gameViewModel.select(card)
+                     }
             }
             
             Button(action: {
@@ -89,11 +77,11 @@ struct SetGameView: View {
             })
             .padding()
             .overlay(
-                RoundedRectangle(cornerRadius: Constant.cornerRadius)
-                    .stroke(lineWidth: Constant.strokeLineWidth).fill(gameViewModel.theme.linearGradient)
+                RoundedRectangle(cornerRadius: UIK.cornerRadius)
+                    .stroke(lineWidth: UIK.strokeLineWidth).fill(gameViewModel.theme.linearGradient)
             )
         }
-        .padding(Constant.shortPaddingLength)
+        .padding(UIK.shortPaddingLength)
         .foregroundColor(.primary)
     }
     
@@ -105,17 +93,17 @@ struct SetGameView: View {
         gameViewModel.startNewGame()
     }
     
-    private func dealCards() {
-        Constant.offsetCardAppearAnimation = 0.2
+    private func dealThreeCards() {
+        UIK.offsetCardAppearAnimation = 0.2
         cardsShown = 0
         
-        gameViewModel.dealCards()
+        gameViewModel.dealThreeCards()
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let gameViewModel = SetGameViewModel()
-//        return SetGameView(gameViewModel: gameViewModel)
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        let gameViewModel = SetGameViewModel()
+        return SetGameView(gameViewModel: gameViewModel)
+    }
+}

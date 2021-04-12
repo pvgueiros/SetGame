@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
-    let card: SetGame.Card
+    let card: Card
     let theme: Theme
     
     var body: some View {
@@ -18,33 +18,32 @@ struct CardView: View {
     }
     
     func body(for size: CGSize) -> some View {
-        let height: CGFloat = size.height * Constant.cardShapeHeightProportion
-        let width: CGFloat = size.width * Constant.cardShapeWidthProportion
+        let height: CGFloat = size.height * UIK.cardShapeHeightProportion
+        let width: CGFloat = size.width * UIK.cardShapeWidthProportion
         
-        return VStack(spacing: Constant.spacingBetweenShapes) {
+        return VStack(spacing: UIK.spacingBetweenShapes) {
             ForEach(1...card.number.rawValue, id: \.self) { _ in
-                Group {
-                    if card.shape == .diamond {
-                        Diamond()
-//                            .strokeBorder(Color.blue,lineWidth: 4)
-//                            .background(Color.white)
-                    } else if card.shape == .oval {
-                        Oval()
-//                            .strokeBorder(Color.blue,lineWidth: 4)
-//                            .background(Color.white)
-                    } else if card.shape == .squiggle {
-                        Squiggle()
-                            .stroke(lineWidth: Constant.strokeLineWidth)
-//                            .strokeBorder(Color.blue,lineWidth: 4)
-//                            .background(Color.white)
-                    }
-                }
-//                .strokeBorder(Color.blue,lineWidth: 4)
-//                .background(Color.white)
-                .foregroundColor(theme.colors[card.cardColor.rawValue])
-                .frame(width: width, height: height)
+                shapify(card)
+                    .frame(width: width, height: height)
             }
         }
         .position(x: size.width/2, y: size.height/2)
+    }
+
+    func shapify(_ card: Card) -> some View {
+        var cardShape: CardShape
+        
+        switch (card.shape) {
+        case .diamond:
+            cardShape = CardShape(pathFunction: Diamond().path)
+        case .oval:
+            cardShape = CardShape(pathFunction: Oval().path)
+        case .squiggle:
+            cardShape = CardShape(pathFunction: Squiggle().path)
+        }
+        
+        return cardShape
+            .shadify(with: card.shading)
+            .foregroundColor(theme.colors[card.cardColor.rawValue])
     }
 }

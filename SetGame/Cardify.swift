@@ -8,27 +8,29 @@
 import SwiftUI
 
 struct Cardify: ViewModifier {
-    var colorGradient: LinearGradient
-    var cornerRadius: CGFloat = 10
-    var strokeLineWidth: CGFloat = 2
-    var shadowRadius: CGFloat = 3
+    var card: Card
+    var theme: Theme
     
-    init(colorGradient: LinearGradient, cornerRadius: CGFloat, strokeLineWidth: CGFloat, shadowRadius: CGFloat) {
-        self.colorGradient = colorGradient
-        self.cornerRadius = cornerRadius
-        self.strokeLineWidth = strokeLineWidth
-        self.shadowRadius = shadowRadius
+    init(card: Card, theme: Theme) {
+        self.card = card
+        self.theme = theme
     }
     
     func body(content: Content) -> some View {
         ZStack {
-            RoundedRectangle(cornerRadius: cornerRadius)
+            RoundedRectangle(cornerRadius: UIK.cornerRadius)
                 .fill(Color.white)
-                .shadow(radius: shadowRadius)
+                .shadow(radius: UIK.shadowRadius)
             
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .stroke(lineWidth: strokeLineWidth)
-                .fill(colorGradient)
+            if card.isChosen {
+                RoundedRectangle(cornerRadius: UIK.cornerRadius)
+                    .stroke(lineWidth: UIK.strokeLineWidth + 3.5)
+                    .fill(theme.colors[card.cardColor.rawValue])
+            } else {
+                RoundedRectangle(cornerRadius: UIK.cornerRadius)
+                    .stroke(lineWidth: UIK.strokeLineWidth)
+                    .fill(theme.linearGradient)
+            }
             
             content
         }
@@ -36,7 +38,7 @@ struct Cardify: ViewModifier {
 }
 
 extension View {
-    func cardify(colorGradient: LinearGradient, cornerRadius: CGFloat, strokeLineWidth: CGFloat, shadowRadius: CGFloat) -> some View {
-        self.modifier(Cardify(colorGradient: colorGradient, cornerRadius: cornerRadius, strokeLineWidth: strokeLineWidth, shadowRadius: shadowRadius))
+    func cardify(card: Card, theme: Theme) -> some View {
+        self.modifier(Cardify(card: card, theme: theme))
     }
 }

@@ -11,18 +11,27 @@ struct SetGame {
     // MARK: - Constants
     
     private let maxNumberOfDealtCards = 30
+    private let initialNumberOfDealtCards = 12
+    private let maxNumberOfChosenCards = 3
     
     // MARK: - Instance Properties
     
     private(set) var cards: [Card]
-    private(set) var numberOfDealtCards = 12 // initial value
     
     var dealtCards: [Card] {
         cards.filter { $0.isDealt }
     }
     
+    private var numberOfDealtCards: Int {
+        dealtCards.count
+    }
+    
     var reachedMaxDealtCards: Bool {
         numberOfDealtCards == maxNumberOfDealtCards
+    }
+    
+    private var chosenCards: [Card] {
+        cards.filter { $0.isChosen }
     }
     
     init(offset: Int = 0) {
@@ -48,59 +57,43 @@ struct SetGame {
         }
         
         cards.shuffle()
-        for index in 0..<numberOfDealtCards {
-            cards[index].isDealt = true
+        for index in 0..<initialNumberOfDealtCards {
+            dealCardAt(index: index)
         }
     }
     
-    struct Card: Identifiable {
-        private(set) var id: Int
-        var isDealt: Bool
-        
-        enum Number: Int, CaseIterable {
-            case one = 1
-            case two
-            case three
-        }
-        var number: Number
-        
-        enum Shape: Int, CaseIterable {
-            case diamond = 0
-            case squiggle
-            case oval
-        }
-        var shape: Shape
-        
-        enum Shading: Int, CaseIterable {
-            case solid = 0
-            case semiOpaque
-            case open
-        }
-        var shading: Shading
-        
-        enum CardColor: Int, CaseIterable {
-            case primary = 0
-            case secondary
-            case tertiary
-        }
-        var cardColor: CardColor
-        
-        init(id: Int, number: Number, shape: Shape, shading: Shading, cardColor: CardColor) {
-            self.id = id
-            self.number = number
-            self.shape = shape
-            self.shading = shading
-            self.cardColor = cardColor
-            self.isDealt = false
-        }
-    }
+    // MARK: - Intents
     
-    mutating func dealCards() {
-        
+    mutating func dealThreeCards() {
         let newNumberOfDealtCards = min(numberOfDealtCards + 3, cards.count, maxNumberOfDealtCards)
+        
         for index in numberOfDealtCards..<newNumberOfDealtCards {
-            cards[index].isDealt = true
+            dealCardAt(index: index)
         }
-        numberOfDealtCards = newNumberOfDealtCards
+    }
+    
+    private mutating func dealCardAt(index: Int) {
+        cards[index].isDealt = true
+        print("Dealt \(cards[index].description)")
+    }
+    
+    mutating func select(_ card: Card) {
+        let index = cards.firstIndex(matching: card)!
+        
+        if chosenCards.count < maxNumberOfChosenCards {
+            toggleCardAt(index: index)
+        } else {
+            chooseSingle(card)
+        }
+    }
+    
+    private mutating func chooseSingle(_ card: Card) {
+        for index in 0..<numberOfDealtCards {
+            cards[index].isChosen = (cards[index].id == card.id)
+        }
+    }
+    
+    private mutating func toggleCardAt(index: Int) {
+        cards[index].isChosen = !cards[index].isChosen
     }
 }
